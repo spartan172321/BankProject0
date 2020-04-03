@@ -46,17 +46,27 @@ public class AdminServicesImpl implements AdminServices{
 			System.out.println("This User Id does not exist");
 			return null;
 		}else {
+			
 			List<User> allUsers = this.viewAllUsers();
+			boolean usernameExists = false;
 			for(User eachUser : allUsers) {
-				if(eachUser.getName() == username) {
-					System.out.println("The username is already taken");
+				if(eachUser.getName().equals(username)) {
+					usernameExists = true;
+					System.out.println(usernameExists);
 				}
 			}
-			user.setName(username);
-			user.setPassword(password);
-			userdao.updateUser(user);
-			System.out.println("Account information updated");
-			return user;
+			
+			if(!usernameExists) {
+				user.setName(username);
+				user.setPassword(password);
+				userdao.updateUser(user);
+				System.out.println("Account information updated");
+				return user;
+			}else {
+				System.out.println("The username is already taken");
+				return null;
+			}
+			
 		}
 	}
 
@@ -83,5 +93,4 @@ public class AdminServicesImpl implements AdminServices{
 			return false;
 		}
 	}
-	
 }

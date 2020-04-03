@@ -155,7 +155,7 @@ public class BankAccountDAOMaria implements BankAccountDAO{
 			ps.setInt(3, account.getAccountId());
 			
 			boolean success = ps.execute();
-			System.out.println(success);
+			
 			return account;
 			
 		}catch(SQLException e) {
